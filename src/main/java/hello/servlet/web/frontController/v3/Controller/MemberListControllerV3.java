@@ -1,4 +1,4 @@
-package hello.servlet.web.frontController.v3.Controller;
+package hello.servlet.web.frontController.v3.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
