@@ -1,7 +1,7 @@
 package hello.servlet.web.frontController.v5.adapter;
 
 import hello.servlet.web.frontController.ModelView;
-import hello.servlet.web.frontController.v3.ControllerV3;
+import hello.servlet.web.frontController.v4.ControllerV4;
 import hello.servlet.web.frontController.v5.MyHandlerAdapter;
 
 import javax.servlet.ServletException;
@@ -11,22 +11,23 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
-
-
+public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
     @Override
     public boolean supports(Object handler) {
-        //MemberFormControllerV3
-        return (handler instanceof ControllerV3);
+        return (handler instanceof ControllerV4);
     }
 
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
-        ControllerV3 controller = (ControllerV3) handler; //casting한다 위에서 controllerv3만 한다고 해서 가능해진다
+        ControllerV4 controller = (ControllerV4) handler;
 
         Map<String, String> paramMap = createParamMap(request);
-        ModelView mv = controller.process(paramMap);
+        HashMap<String, Object> model = new HashMap<>();
 
+        String viewName = controller.process(paramMap, model);
+
+        ModelView mv = new ModelView(viewName);
+        mv.setModel(model);
 
         return mv;
     }
